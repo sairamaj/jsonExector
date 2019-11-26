@@ -125,7 +125,6 @@ namespace JsonExecutor.Framework
                 {
                     var expectedObjectJson = JsonConvert.DeserializeObject<ExpectedExceptionInfo>(
                         JsonConvert.SerializeObject(test.GetExpectedResults()));
-                    Console.WriteLine(expectedObjectJson);
                     if (expectedObjectJson.Exception)
                     {
                         this.VerifyException(test, expectedObjectJson, e);
@@ -180,7 +179,6 @@ namespace JsonExecutor.Framework
                         var output = JsonConvert.SerializeObject(returnObject, Formatting.Indented);
                         File.WriteAllText(@"c:\temp\test.json", output);
                         var expectedObjectJson = JsonConvert.SerializeObject(evaluatedExpectedValues.First().Value);
-                        Console.WriteLine(expectedObjectJson);
                         var returnType = results["resultType"];
                         var expectedObject = JsonConvert.DeserializeObject(expectedObjectJson?.ToString(), returnType as Type);
 
@@ -194,8 +192,6 @@ namespace JsonExecutor.Framework
                     var evaluatedExpectedValues = this.EvaluateParameters(test.GetExpectedResults(true), variables);
                     if (evaluatedExpectedValues.Any())
                     {
-                        Console.WriteLine("===========================");
-
                         // Verify dictionary.
                         results.Remove("resultType");
                         this.SendVerificationTraceInfo(test, results, evaluatedExpectedValues);
@@ -207,7 +203,6 @@ namespace JsonExecutor.Framework
             {
                 var expectedObjectJson = JsonConvert.DeserializeObject<ExpectedExceptionInfo>(
                     JsonConvert.SerializeObject(test.GetExpectedResults()));
-                Console.WriteLine(expectedObjectJson);
                 if (expectedObjectJson.Exception)
                 {
                     this.VerifyException(test, expectedObjectJson, e);

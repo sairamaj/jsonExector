@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonExecutor.Framework", "src\JsonExecutor.Framework\JsonExecutor.Framework.csproj", "{2951A15C-A914-444F-BF64-83C4D758E703}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonExecutor.Framework", "src\JsonExecutor.Framework\JsonExecutor.Framework.csproj", "{2951A15C-A914-444F-BF64-83C4D758E703}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7DC6569D-D64C-43DF-96DB-D07B273B1D95}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonExecutor.Framework.Unit.Tests", "test\JsonExecutor.Framework.Unit.Tests\JsonExecutor.Framework.Unit.Tests.csproj", "{A9FCC30A-57BE-4ACE-8D80-0DB8BFC49514}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonExecutor.Console", "src\JsonExecutor.Console\JsonExecutor.Console.csproj", "{167994AE-DBBA-47B6-8A6B-AA7D0BDD0794}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonExecutor.Console", "src\JsonExecutor.Console\JsonExecutor.Console.csproj", "{6A84D9B1-A6AF-486B-9EF8-CECB572462C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,17 +25,17 @@ Global
 		{A9FCC30A-57BE-4ACE-8D80-0DB8BFC49514}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9FCC30A-57BE-4ACE-8D80-0DB8BFC49514}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9FCC30A-57BE-4ACE-8D80-0DB8BFC49514}.Release|Any CPU.Build.0 = Release|Any CPU
-		{167994AE-DBBA-47B6-8A6B-AA7D0BDD0794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{167994AE-DBBA-47B6-8A6B-AA7D0BDD0794}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{167994AE-DBBA-47B6-8A6B-AA7D0BDD0794}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{167994AE-DBBA-47B6-8A6B-AA7D0BDD0794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A84D9B1-A6AF-486B-9EF8-CECB572462C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A84D9B1-A6AF-486B-9EF8-CECB572462C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A84D9B1-A6AF-486B-9EF8-CECB572462C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A84D9B1-A6AF-486B-9EF8-CECB572462C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2951A15C-A914-444F-BF64-83C4D758E703} = {7DC6569D-D64C-43DF-96DB-D07B273B1D95}
-		{167994AE-DBBA-47B6-8A6B-AA7D0BDD0794} = {7DC6569D-D64C-43DF-96DB-D07B273B1D95}
+		{6A84D9B1-A6AF-486B-9EF8-CECB572462C4} = {7DC6569D-D64C-43DF-96DB-D07B273B1D95}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DB10F42-164F-43FC-B1AA-6B0580492556}

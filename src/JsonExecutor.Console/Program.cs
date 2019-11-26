@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using JsonExecutor.Console.Model;
-using JsonExecutor.Framework;
 
 namespace JsonExecutor.Console
 {
@@ -16,7 +17,7 @@ namespace JsonExecutor.Console
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             var testData = new TestData(args[0]);
             AssemblyPath = Path.Combine(args[0], "Assemblies");
-            IDictionary<string,bool> testResults = new Dictionary<string, bool>();
+            IDictionary<string, bool> testResults = new Dictionary<string, bool>();
             foreach (var test in testData.Tests)
             {
                 System.Console.WriteLine($"Executing {test.Item1}...");
@@ -45,13 +46,19 @@ namespace JsonExecutor.Console
 
         private static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
+            var excludes = new string[] {"nspec", "xunit.assert"};
+            var assemblyName = args.Name.Split(',').First();
+            if (excludes.Contains(assemblyName))
+            {
+                return null;
+            }
             System.Console.WriteLine("____________________________");
             System.Console.WriteLine(args.Name);
             System.Console.WriteLine("____________________________");
 
             try
             {
-                var fileName = Path.Combine(AssemblyPath, args.Name.Split(',').First()) + ".dll";
+                var fileName = Path.Combine(AssemblyPath, assemblyName) + ".dll";
                 System.Console.WriteLine($"Loading {fileName}");
                 return Assembly.LoadFrom(fileName);
             }
@@ -63,4 +70,5 @@ namespace JsonExecutor.Console
             return null;
         }
     }
+
 }

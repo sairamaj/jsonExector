@@ -69,7 +69,6 @@ namespace JsonExecutor.Framework.Expressions
         /// </param>
         public override void Visit(SyntaxNode node)
         {
-            Console.WriteLine($"node:{node.GetType()} {node.GetText()}");
             base.Visit(node);
         }
 
@@ -82,7 +81,6 @@ namespace JsonExecutor.Framework.Expressions
         public override void VisitInvocationExpression(InvocationExpressionSyntax node)
         {
             this._methodInvocationVisited = true;
-            Console.WriteLine(node.GetText().ToString());
             base.VisitInvocationExpression(node);
         }
 
