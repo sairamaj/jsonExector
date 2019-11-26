@@ -3,7 +3,7 @@
     /// <summary>
     /// Expected exception information.
     /// </summary>
-    internal class ExpectedExceptionInfo
+    public class ExpectedExceptionInfo
     {
         /// <summary>
         /// Gets or sets a value indicating whether this is exception.

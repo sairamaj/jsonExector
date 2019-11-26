@@ -157,14 +157,6 @@ namespace JsonExecutor.Framework.Unit.Tests
             tester.ExecuteAndVerify(new Dictionary<string, object>() { });
         }
 
-        [Test(Description = "Partial array validation.")]
-        [Ignore("This partial validation is not done yet.")]
-        public void ForPartialArrayValidation()
-        {
-            var tester = new JsonExecutor(ReadTestFile("MethodReturnStringArrayDictionaryContainValidation.json"), ReadTestFile("config.json"), msg => { });
-            tester.ExecuteAndVerify(new Dictionary<string, object>() { });
-        }
-
         [Test(Description = "Variables extract.")]
         public void ExtractPlainStringReturnMethodInToVariableAndUseInNextTest()
         {
@@ -188,14 +180,6 @@ namespace JsonExecutor.Framework.Unit.Tests
                 {"item1" , "val1" },
                 {"item2" , "val2" }
             });
-        }
-
-        [Test(Description = "BuiltinType Random method.")]
-        [Ignore("Need to enable this.")]
-        public void BuiltinTypeRandomMethod()
-        {
-            var tester = new JsonExecutor(ReadTestFile("BuiltinTypeRandomMethod.json"), ReadTestFile("config.json"), msg => { });
-            tester.ExecuteAndVerify(new Dictionary<string, object>() { });
         }
 
         [Test(Description = "DefineVariable.")]

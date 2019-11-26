@@ -94,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestFiles\BuiltinTypeRandomMethod.json">
+    <None Include="NeedToTest\BuiltinTypeRandomMethod.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\config.json">
@@ -154,7 +154,7 @@
     <None Include="TestFiles\MethodReturnStringArrayDictionary.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\MethodReturnStringArrayDictionaryContainValidation.json">
+    <None Include="NeedToTest\MethodReturnStringArrayDictionaryContainValidation.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\MethodReturnStringArrayDictionaryWithFunctoids.json">
