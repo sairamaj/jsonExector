@@ -58,6 +58,13 @@ namespace JsonExecutor.Console
 
             try
             {
+                var found = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == assemblyName);
+                if (found != null)
+                {
+                    System.Console.WriteLine($"Assembly {found.GetName().Name}");
+                    return found;
+                }
+
                 var fileName = Path.Combine(AssemblyPath, assemblyName) + ".dll";
                 System.Console.WriteLine($"Loading {fileName}");
                 return Assembly.LoadFrom(fileName);
