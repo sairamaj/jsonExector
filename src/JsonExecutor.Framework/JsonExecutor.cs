@@ -34,7 +34,7 @@ namespace JsonExecutor.Framework
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonExecutor"/> class.
         /// </summary>
-        /// <param name="dataJson">
+        /// <param name="testDataJson">
         /// Json data to be executed.
         /// </param>
         /// <param name="configJson">
@@ -43,10 +43,10 @@ namespace JsonExecutor.Framework
         /// <param name="traceAction">
         /// A <see cref="Action{T}"/> of <see cref="ExecuteTraceInfo"/> for tracking the execution.
         /// </param>
-        public JsonExecutor(string dataJson, string configJson, Action<ExecuteTraceInfo> traceAction)
+        public JsonExecutor(string testDataJson, string configJson, Action<ExecuteTraceInfo> traceAction)
         {
             this._traceAction = traceAction;
-            this._tests = JsonConvert.DeserializeObject<IEnumerable<TestInfo>>(dataJson);
+            this._tests = JsonConvert.DeserializeObject<IEnumerable<TestInfo>>(testDataJson);
             var config = JsonConvert.DeserializeObject<IEnumerable<TestConfig>>(configJson);
             this._methodProxy = new MethodProxy(config?.Select(c => c.TypeName), traceAction);
         }

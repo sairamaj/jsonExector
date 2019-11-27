@@ -14,28 +14,38 @@ namespace JsonExecutor.Console
         private static string AssemblyPath;
         static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+//            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             var testData = new TestData(args[0]);
             AssemblyPath = Path.Combine(args[0], "Assemblies");
+            var configFile = Path.Combine(args[0], "app.config");
             IDictionary<string, bool> testResults = new Dictionary<string, bool>();
             foreach (var test in testData.Tests)
             {
                 System.Console.WriteLine($"Executing {test.Item1}...");
-                var executor = new Framework.JsonExecutor(test.Item2, testData.ConfigurationJson, track =>
+                System.Console.WriteLine("_______ Main __________");
+                foreach (var kv in testData.Variables)
                 {
-                    System.Console.WriteLine($"\t{track.MethodName}");
-                });
+                    System.Console.WriteLine($"{kv.Key}: {kv.Value}");
+                }
+                System.Console.WriteLine("_______ Main __________");
+                System.Console.WriteLine($"Config file: {configFile}");
+                new Executor(test.Item2, testData.ConfigurationJson)
+                    .Execute(configFile, AssemblyPath, testData.Variables);
+                //var executor = new Framework.JsonExecutor(test.Item2, testData.ConfigurationJson, track =>
+                //{u
+                //    System.Console.WriteLine($"\t{track.MethodName}");
+                //});
 
-                try
-                {
-                    executor.ExecuteAndVerify(testData.Variables);
-                    testResults[test.Item1] = true;
-                }
-                catch (Exception e)
-                {
-                    System.Console.WriteLine(e.Message);
-                    testResults[test.Item1] = false;
-                }
+                //try
+                //{
+                //    executor.ExecuteAndVerify(testData.Variables);
+                //    testResults[test.Item1] = true;
+                //}
+                //catch (Exception e)
+                //{
+                //    System.Console.WriteLine(e.Message);
+                //    testResults[test.Item1] = false;
+                //}
             }
 
             foreach (var test in testResults)

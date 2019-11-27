@@ -38,7 +38,7 @@ namespace JsonExecutor.Console.Model
             get
             {
                 var excludes = new string[] { "config.json", "variables.json" };
-                foreach (var file in Directory.GetFiles(this.Path).Where(f => !excludes.Contains(System.IO.Path.GetFileName(f))))
+                foreach (var file in Directory.GetFiles(this.Path, "*.json").Where(f => !excludes.Contains(System.IO.Path.GetFileName(f))))
                 {
                     yield return new Tuple<string, string>(
                         System.IO.Path.GetFileNameWithoutExtension(file),
