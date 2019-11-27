@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using AppDomainToolkit;
+using JsonExecutor.Console.Model;
 using Newtonsoft.Json;
 
 namespace JsonExecutor.Console
@@ -49,9 +50,8 @@ namespace JsonExecutor.Console
         }
 
         public string TestName { get; }
-        public bool Result { get; set; }
 
-        public bool Execute(IDictionary<string, object> variables)
+        public TestResult Execute(IDictionary<string, object> variables)
         {
             // CopyAssembliesToPath(assemblyPath);
             using (var context = AppDomainContext.Create(new AppDomainSetup()
@@ -61,21 +61,10 @@ namespace JsonExecutor.Console
             {
                 context.RemoteResolver.AddProbePath(this._binPath);
                 return RemoteFunc.Invoke(context.Domain, variables, this.InternalExecute);
-                //RemoteAction.Invoke(
-                //    context.Domain,
-                //    this.TestName,
-                //    variables,
-                //    (msg, dict) =>
-                //    {
-                //        System.Console.WriteLine($"Executing: {this.TestName}");
-                //        this.Result = InternalExecute(dict);
-                //    });
             }
-
-            return this.Result;
         }
 
-        private bool InternalExecute(IDictionary<string, object> runtimeVariables)
+        private TestResult InternalExecute(IDictionary<string, object> runtimeVariables)
         {
             var ret = false;
             var testDataJson = File.ReadAllText(this._testFileName);
@@ -89,21 +78,17 @@ namespace JsonExecutor.Console
 
             var executor = new Framework.JsonExecutor(testDataJson, configJson, track =>
             {
-                // System.Console.WriteLine($"\t{track.MethodName}");
             });
 
             try
             {
                 executor.ExecuteAndVerify(fileVariables);
-                System.Console.WriteLine("setting ret.");
-                ret = true;
+                return new TestResult(this.TestName, true,"Success");
             }
             catch (Exception e)
             {
-                System.Console.WriteLine(e.Message);
+                return new TestResult(this.TestName, false, e.Message);
             }
-
-            return ret;
         }
     }
 }
