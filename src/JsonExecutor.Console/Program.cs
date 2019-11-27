@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using JsonExecutor.Console.Model;
 
 namespace JsonExecutor.Console
 {
@@ -14,38 +8,14 @@ namespace JsonExecutor.Console
         private static string AssemblyPath;
         static void Main(string[] args)
         {
-//            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-            var testData = new TestData(args[0]);
-            AssemblyPath = Path.Combine(args[0], "Assemblies");
-            var configFile = Path.Combine(args[0], "app.config");
+            var testBasePath = args[0];
             IDictionary<string, bool> testResults = new Dictionary<string, bool>();
-            foreach (var test in testData.Tests)
+            foreach (var test in Directory.GetFiles(Path.Combine(testBasePath,"tests"), "*.json"))
             {
-                System.Console.WriteLine($"Executing {test.Item1}...");
-                System.Console.WriteLine("_______ Main __________");
-                foreach (var kv in testData.Variables)
-                {
-                    System.Console.WriteLine($"{kv.Key}: {kv.Value}");
-                }
-                System.Console.WriteLine("_______ Main __________");
-                System.Console.WriteLine($"Config file: {configFile}");
-                new Executor(test.Item2, testData.ConfigurationJson)
-                    .Execute(configFile, AssemblyPath, testData.Variables);
-                //var executor = new Framework.JsonExecutor(test.Item2, testData.ConfigurationJson, track =>
-                //{u
-                //    System.Console.WriteLine($"\t{track.MethodName}");
-                //});
-
-                //try
-                //{
-                //    executor.ExecuteAndVerify(testData.Variables);
-                //    testResults[test.Item1] = true;
-                //}
-                //catch (Exception e)
-                //{
-                //    System.Console.WriteLine(e.Message);
-                //    testResults[test.Item1] = false;
-                //}
+                var testName = Path.GetFileNameWithoutExtension(test);
+                var ret = new Executor(testBasePath, testName).Execute(new Dictionary<string, object>());
+                var msg = ret ? "success" : "failed";
+                System.Console.WriteLine($"{testName} {msg}");
             }
 
             foreach (var test in testResults)
@@ -53,39 +23,5 @@ namespace JsonExecutor.Console
                 System.Console.WriteLine($"{test.Key,30}:{test.Value}");
             }
         }
-
-        private static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            var excludes = new string[] {"nspec", "xunit.assert"};
-            var assemblyName = args.Name.Split(',').First();
-            if (excludes.Contains(assemblyName))
-            {
-                return null;
-            }
-            System.Console.WriteLine("____________________________");
-            System.Console.WriteLine(args.Name);
-            System.Console.WriteLine("____________________________");
-
-            try
-            {
-                var found = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == assemblyName);
-                if (found != null)
-                {
-                    System.Console.WriteLine($"Assembly {found.GetName().Name}");
-                    return found;
-                }
-
-                var fileName = Path.Combine(AssemblyPath, assemblyName) + ".dll";
-                System.Console.WriteLine($"Loading {fileName}");
-                return Assembly.LoadFrom(fileName);
-            }
-            catch (Exception e)
-            {
-                System.Console.WriteLine(e);
-            }
-
-            return null;
-        }
     }
-
 }

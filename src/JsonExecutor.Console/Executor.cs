@@ -1,70 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using AppDomainToolkit;
+using Newtonsoft.Json;
 
 namespace JsonExecutor.Console
 {
     [Serializable]
     public class Executor
     {
-        private readonly string _testDataJson;
-        private readonly string _configJson;
+        private readonly string _basePath;
+        private readonly string _testFileName;
+        private readonly string _binPath;
+        private readonly string _appConfigFile;
+        private readonly string _variablesFile;
+        private readonly string _configFile;
 
-        public Executor(string testDataJson, string configJson)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Executor"/> class.
+        /// </summary>
+        /// <param name="basePath">
+        /// Base path of the test data.
+        ///     bin\                API assembly and any dependencies
+        ///     test\               Test Files
+        ///     app.config          Application configuration file (standard .NET app.config)
+        ///     variables.json      Variables for all the tests
+        ///     config.json         Configuration containing the type names.
+        /// </param>
+        /// <param name="testName">
+        /// Test name which corresponds to a file name.
+        /// </param>
+        public Executor(string basePath, string testName)
         {
-            _testDataJson = testDataJson;
-            _configJson = configJson;
+            this.TestName = testName ?? throw new ArgumentNullException(nameof(testName));
+            this._basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
+
+            var testFileFullPath = Path.Combine(Path.Combine(basePath, "tests"), testName) + ".json";
+            if (!File.Exists(testFileFullPath))
+            {
+                throw new ArgumentException($"{testFileFullPath} does not exist.");
+            }
+
+            this._testFileName = testFileFullPath;
+            this._binPath = Path.Combine(basePath, "bin");
+            this._appConfigFile = Path.Combine(basePath, "app.config");
+            this._variablesFile = Path.Combine(basePath, "variables.json");
+            this._configFile = Path.Combine(basePath, "config.json");
         }
 
-        public void Execute(string configFile, string assemblyPath, IDictionary<string,object> variables)
+        public string TestName { get; }
+        public bool Result { get; set; }
+
+        public bool Execute(IDictionary<string, object> variables)
         {
-           // CopyAssembliesToPath(assemblyPath);
+            // CopyAssembliesToPath(assemblyPath);
             using (var context = AppDomainContext.Create(new AppDomainSetup()
             {
-                ConfigurationFile = configFile
+                ConfigurationFile = this._appConfigFile
             }))
             {
-                context.RemoteResolver.AddProbePath(assemblyPath);
-                RemoteAction.Invoke(
-                    context.Domain,
-                    "Hello World",
-                    variables,
-                    (msg,dict) =>
-                    {
-                        System.Console.WriteLine(msg);
-                        System.Console.WriteLine("_______ AppDomain __________");
-                        foreach (var kv in dict)
-                        {
-                            System.Console.WriteLine($"{kv.Key}: {kv.Value}");
-                        }
-                        System.Console.WriteLine("_______ AppDomain __________");
-                        InternalExecute(dict);
-                    });
+                context.RemoteResolver.AddProbePath(this._binPath);
+                return RemoteFunc.Invoke(context.Domain, variables, this.InternalExecute);
+                //RemoteAction.Invoke(
+                //    context.Domain,
+                //    this.TestName,
+                //    variables,
+                //    (msg, dict) =>
+                //    {
+                //        System.Console.WriteLine($"Executing: {this.TestName}");
+                //        this.Result = InternalExecute(dict);
+                //    });
             }
+
+            return this.Result;
         }
 
-        bool InternalExecute(IDictionary<string,object> variables)
+        private bool InternalExecute(IDictionary<string, object> runtimeVariables)
         {
             var ret = false;
-            //System.Console.WriteLine("________________________");
-            //System.Console.WriteLine(this._testDataJson);
-            //System.Console.WriteLine("________________________");
-
-            //System.Console.WriteLine("________________________");
-            //System.Console.WriteLine(this._configJson);
-            //System.Console.WriteLine("________________________");
-
-            var executor = new Framework.JsonExecutor(this._testDataJson, this._configJson, track =>
+            var testDataJson = File.ReadAllText(this._testFileName);
+            var configJson = File.ReadAllText(this._configFile);
+            var fileVariables = JsonConvert.DeserializeObject<IDictionary<string, object>>(File.ReadAllText(this._variablesFile));
+            // override with incoming variables
+            foreach (var kv in runtimeVariables)
             {
-                System.Console.WriteLine($"\t{track.MethodName}");
+                fileVariables[kv.Key] = kv.Value;
+            }
+
+            var executor = new Framework.JsonExecutor(testDataJson, configJson, track =>
+            {
+                // System.Console.WriteLine($"\t{track.MethodName}");
             });
 
             try
             {
-                executor.ExecuteAndVerify(variables);
+                executor.ExecuteAndVerify(fileVariables);
+                System.Console.WriteLine("setting ret.");
                 ret = true;
             }
             catch (Exception e)
