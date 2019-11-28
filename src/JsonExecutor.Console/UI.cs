@@ -26,5 +26,13 @@ namespace JsonExecutor.Console
             var consoleUi = new ConsoleUi(MessageType.Info);
             files.ToList().ForEach(f => consoleUi.Show($"{f,30}"));
         }
+
+        public static void ShowInfo(string message)
+        {
+            System.Console.WriteLine("___________________________________");
+            var consoleUi = new ConsoleUi(MessageType.Info);
+            new ConsoleUi(MessageType.Info).Show($"{message,30}");
+            System.Console.WriteLine("___________________________________");
+        }
     }
 }

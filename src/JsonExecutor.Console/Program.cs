@@ -19,17 +19,22 @@ namespace JsonExecutor.Console
         {
             var success = 0;
             var failed = 0;
-            var testFiles = GetTestFiles(options);
-            if (options.List)
+            var testFiles = GetTestFiles(options).ToList();
+            if (options.List || !options.Run)
             {
                 Ui.ShowTestFiles(testFiles);
+            }
+
+            if (!options.Run)
+            {
                 return;
             }
 
             foreach (var test in testFiles)
             {
                 var testName = Path.GetFileNameWithoutExtension(test);
-                var result = new Executor(options.Path, testName).Execute(new Dictionary<string, object>());
+                Ui.ShowInfo($"Executing:{testName}");
+                var result = new Executor(options.Path, testName).Execute(new Dictionary<string, object>(), options.Verbose);
                 Ui.Show(result);
                 if (result.Result)
                 {
