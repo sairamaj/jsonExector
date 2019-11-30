@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using FluentAssertions;
 using JsonExecutor.Framework.Expressions;
 using Newtonsoft.Json;
@@ -50,6 +51,11 @@ namespace JsonExecutor.Framework
             var config = JsonConvert.DeserializeObject<IEnumerable<TestConfig>>(configJson);
             this._methodProxy = new MethodProxy(config?.Select(c => c.TypeName), traceAction);
         }
+
+        /// <summary>
+        /// Gets available methods.
+        /// </summary>
+        public IDictionary<string, MethodInfo> AvailableMethods => this._methodProxy.Methods;
 
         /// <summary>
         /// Executes with given variables.

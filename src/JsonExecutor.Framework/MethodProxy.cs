@@ -77,6 +77,11 @@ namespace JsonExecutor.Framework
         public Type ReturnType { get; set; }
 
         /// <summary>
+        /// Gets methods.
+        /// </summary>
+        public IDictionary<string, MethodInfo> Methods => this._methods;
+
+        /// <summary>
         /// Executes method.
         /// </summary>
         /// <param name="name">
@@ -125,6 +130,11 @@ namespace JsonExecutor.Framework
 
                 if (p.ParameterType == typeof(Guid))
                 {
+                    if (val == null)
+                    {
+                        return Guid.Empty;
+                    }
+
                     return Guid.Parse(val?.ToString());
                 }
 

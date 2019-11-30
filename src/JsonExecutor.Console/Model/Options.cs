@@ -18,5 +18,8 @@ namespace JsonExecutor.Console.Model
 
         [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
         public bool Verbose { get; set; }
+
+        [Option('m', "methods", Required = false, HelpText = "List the Methods.")]
+        public bool ListMethods { get; set; }
     }
 }

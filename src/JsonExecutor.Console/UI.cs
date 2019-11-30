@@ -27,6 +27,15 @@ namespace JsonExecutor.Console
             files.ToList().ForEach(f => consoleUi.Show($"{f,30}"));
         }
 
+        public static void ShowMethods(IDictionary<string, string> methods)
+        {
+            System.Console.WriteLine("");
+            var consoleUi = new ConsoleUi(MessageType.Info);
+            methods.Keys
+                .OrderBy(k=> k)
+                .ToList().ForEach(f => consoleUi.Show($"{f,50}"));
+        }
+
         public static void ShowInfo(string message)
         {
             System.Console.WriteLine("___________________________________");

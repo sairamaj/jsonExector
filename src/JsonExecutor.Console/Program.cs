@@ -25,6 +25,11 @@ namespace JsonExecutor.Console
                 Ui.ShowTestFiles(testFiles);
             }
 
+            if (options.ListMethods)
+            {
+                ListMethods(options.Path, testFiles.First());
+            }
+
             if (!options.Run)
             {
                 return;
@@ -47,6 +52,11 @@ namespace JsonExecutor.Console
             }
 
             Ui.ShowSummary(success, failed);
+        }
+
+        private static void ListMethods(string path, string dummyTestName)
+        {
+            Ui.ShowMethods(new Executor(path, dummyTestName).GetAvailableMethods());
         }
 
         static IEnumerable<string> GetTestFiles(Options options)

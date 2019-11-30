@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using AppDomainToolkit;
 using JsonExecutor.Console.Model;
 using JsonExecutor.Framework;
@@ -54,7 +56,6 @@ namespace JsonExecutor.Console
 
         public TestResult Execute(IDictionary<string, object> variables, bool verbose)
         {
-            // CopyAssembliesToPath(assemblyPath);
             using (var context = AppDomainContext.Create(new AppDomainSetup()
             {
                 ConfigurationFile = this._appConfigFile
@@ -63,6 +64,26 @@ namespace JsonExecutor.Console
                 context.RemoteResolver.AddProbePath(this._binPath);
                 return RemoteFunc.Invoke(context.Domain, variables, verbose, this.InternalExecute);
             }
+        }
+
+        public IDictionary<string, string> GetAvailableMethods()
+        {
+            using (var context = AppDomainContext.Create(new AppDomainSetup()
+            {
+                ConfigurationFile = this._appConfigFile
+            }))
+            {
+                context.RemoteResolver.AddProbePath(this._binPath);
+                return RemoteFunc.Invoke(context.Domain, this.InternalGetAvailableMethods);
+            }
+        }
+
+        private IDictionary<string, string> InternalGetAvailableMethods()
+        {
+            var testDataJson = File.ReadAllText(this._testFileName);
+            var configJson = File.ReadAllText(this._configFile);
+            var executor = new Framework.JsonExecutor(testDataJson, configJson, track => { });
+            return executor.AvailableMethods.ToDictionary(k=> k.Key,k=> k.Key);
         }
 
         private TestResult InternalExecute(IDictionary<string, object> runtimeVariables, bool verboseOptions)
