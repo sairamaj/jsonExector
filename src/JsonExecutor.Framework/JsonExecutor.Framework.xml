@@ -1,0 +1,856 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JsonExecutor.Framework</name>
+    </assembly>
+    <members>
+        <member name="T:JsonExecutor.Framework.BuiltinHelperType">
+            <summary>
+            Helper functions for expression evaluations.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.BuiltinHelperType.Random(System.Int32,System.Int32)">
+            <summary>
+            Gets random number.
+            </summary>
+            <param name="min">
+            Minimum number.
+            </param>
+            <param name="max">
+            Maximum number.
+            </param>
+            <returns>
+            A random number.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.BuiltinHelperType.ToLower(System.String)">
+            <summary>
+            Gets lower case of given string.
+            </summary>
+            <param name="input">
+            Input string.
+            </param>
+            <returns>
+            Lower case of the given string.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.BuiltinHelperType.Reverse(System.String)">
+            <summary>
+            Reverses the given string.
+            </summary>
+            <param name="input">
+            Input string.
+            </param>
+            <returns>
+            Reversed string.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.BuiltinHelperType.Extract(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Extracts the value of given key from the dictionary.
+            </summary>
+            <param name="key">
+            Key value.
+            </param>
+            <param name="result">
+            Dictionary input.
+            </param>
+            <returns>
+            Value in the dictionary if present, otherwise null.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.BuiltinHelperType.EchoString(System.String)">
+            <summary>
+            Gets back the given string.
+            </summary>
+            <param name="input">
+            Input string.
+            </param>
+            <returns>
+            Returns the same string given.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.BuiltinHelperType.EchoDictionary(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Echos the given dictionary.
+            </summary>
+            <param name="inputs">
+            Input string.
+            </param>
+            <returns>
+            Returns the same dictionary.
+            </returns>
+        </member>
+        <member name="T:JsonExecutor.Framework.ExecuteTraceInfo">
+            <summary>
+            Execution trace information.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.ExecuteTraceInfo.#ctor(JsonExecutor.Framework.TraceType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.ExecuteTraceInfo"/> class.
+            </summary>
+            <param name="traceType">
+            A <see cref="P:JsonExecutor.Framework.ExecuteTraceInfo.TraceType"/> type.
+            </param>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExecuteTraceInfo.TraceType">
+            <summary>
+            Gets trace type.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExecuteTraceInfo.TestInfo">
+            <summary>
+            Gets or sets test information.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExecuteTraceInfo.MethodName">
+            <summary>
+            Gets or sets method executed.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExecuteTraceInfo.MethodParameters">
+            <summary>
+            Gets or sets method parameters.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExecuteTraceInfo.MethodReturnValue">
+            <summary>
+            Gets or sets method return value.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExecuteTraceInfo.MethodException">
+            <summary>
+            Gets or sets method exception.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExecuteTraceInfo.MethodReturnType">
+            <summary>
+            Gets or sets method return type.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExecuteTraceInfo.Expected">
+            <summary>
+            Gets or sets expected value.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExecuteTraceInfo.Actual">
+            <summary>
+            Gets or sets actual value.
+            </summary>
+        </member>
+        <member name="T:JsonExecutor.Framework.ExpectedExceptionInfo">
+            <summary>
+            Expected exception information.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExpectedExceptionInfo.Exception">
+            <summary>
+            Gets or sets a value indicating whether this is exception.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExpectedExceptionInfo.ExceptionType">
+            <summary>
+            Gets or sets expected exception type.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.ExpectedExceptionInfo.ExceptionMessageLike">
+            <summary>
+            Gets or sets expected exception message like string.
+            </summary>
+        </member>
+        <member name="T:JsonExecutor.Framework.Expressions.Argument">
+            <summary>
+            Represents argument expression.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.Argument.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.Expressions.Argument"/> class.
+            </summary>
+            <param name="name">
+            Name of the argument.
+            </param>
+            <param name="val">
+            Value of the argument.
+            </param>
+            <param name="pos">
+            Postion of the argument.
+            </param>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.Argument.Name">
+            <summary>
+            Gets name of the argument.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.Argument.Val">
+            <summary>
+            Gets value of the argument.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.Argument.Pos">
+            <summary>
+            Gets position of the argument.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.Argument.IsVariable">
+            <summary>
+            Gets or sets a value indicating whether this argument is variable or not.
+            </summary>
+        </member>
+        <member name="T:JsonExecutor.Framework.Expressions.Evaluator">
+            <summary>
+            Expression evaluator.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.Evaluator.Parse(System.String)">
+            <summary>
+            Parse the expression.
+            </summary>
+            <param name="expression">
+            Expression to be parsed.
+            </param>
+            <returns>
+            A <see cref="T:JsonExecutor.Framework.Expressions.ExpressionInfo"/> instance.
+            </returns>
+        </member>
+        <member name="T:JsonExecutor.Framework.Expressions.ExpressionInfo">
+            <summary>
+            Expression information.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.ExpressionInfo.MethodData">
+            <summary>
+            Gets or sets method data.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.ExpressionInfo.Variable">
+            <summary>
+            Gets or sets variable.
+            </summary>
+        </member>
+        <member name="T:JsonExecutor.Framework.Expressions.InvalidSyntaxException">
+            <summary>
+            Invalid syntax exception.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.InvalidSyntaxException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.Expressions.InvalidSyntaxException"/> class.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.InvalidSyntaxException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.Expressions.InvalidSyntaxException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.InvalidSyntaxException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.Expressions.InvalidSyntaxException"/> class.
+            </summary>
+            <param name="message">
+            Message of the exception.
+            </param>
+            <param name="inner">
+            Inner exception.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.InvalidSyntaxException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.Expressions.InvalidSyntaxException"/> class.
+            </summary>
+            <param name="info">
+            A <see cref="T:System.Runtime.Serialization.SerializationInfo"/> instance.
+            </param>
+            <param name="context">
+            A <see cref="T:System.Runtime.Serialization.StreamingContext"/> instance.
+            </param>
+        </member>
+        <member name="T:JsonExecutor.Framework.Expressions.MethodData">
+            <summary>
+            Represents method data.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.Expressions.MethodData._args">
+            <summary>
+            method arguments.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.MethodData.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.Expressions.MethodData"/> class.
+            </summary>
+            <param name="name">
+            Method name.
+            </param>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.MethodData.Name">
+            <summary>
+            Gets method name.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.MethodData.Arguments">
+            <summary>
+            Gets arguments.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.MethodData.AddParameter(System.String,System.String,System.Int32)">
+            <summary>
+            Adds a method parameter.
+            </summary>
+            <param name="name">
+            Name of the parameter.
+            </param>
+            <param name="val">
+            Value of the parameter.
+            </param>
+            <param name="pos">
+            Position of the parameter.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.MethodData.ToString">
+            <summary>
+            Gets string representation.
+            </summary>
+            <returns>
+            Returns the arguments information in string form.
+            </returns>
+        </member>
+        <member name="T:JsonExecutor.Framework.Expressions.MethodExtractWalker">
+            <summary>
+            Method extract walker.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.Expressions.MethodExtractWalker._expression">
+            <summary>
+            Expression.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.Expressions.MethodExtractWalker._methodInvocationVisited">
+            <summary>
+            method invocation visited flag.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.Expressions.MethodExtractWalker._methodNameExtracted">
+            <summary>
+            method name extracted flag.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.Expressions.MethodExtractWalker._methodData">
+            <summary>
+             method data.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.Expressions.MethodExtractWalker._variable">
+            <summary>
+            variable.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.Expressions.MethodExtractWalker._currentArgumentCount">
+            <summary>
+            Current argument count.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.MethodExtractWalker.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.Expressions.MethodExtractWalker"/> class.
+            </summary>
+            <param name="expression">
+            Expression from which method or variable is extracted.
+            </param>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.MethodExtractWalker.Method">
+            <summary>
+            Gets method data.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.MethodExtractWalker.Variable">
+            <summary>
+            Gets variable data.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.MethodExtractWalker.Visit(Microsoft.CodeAnalysis.SyntaxNode)">
+            <summary>
+            Visits syntax node.
+            </summary>
+            <param name="node">
+            A <see cref="T:Microsoft.CodeAnalysis.SyntaxNode"/> instance.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.MethodExtractWalker.VisitInvocationExpression(Microsoft.CodeAnalysis.CSharp.Syntax.InvocationExpressionSyntax)">
+            <summary>
+            Visits invocation expression.
+            </summary>
+            <param name="node">
+            A <see cref="T:Microsoft.CodeAnalysis.CSharp.Syntax.InvocationExpressionSyntax"/> instance.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.MethodExtractWalker.VisitIdentifierName(Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax)">
+            <summary>
+            Visits identifier name.
+            </summary>
+            <param name="node">
+            A <see cref="T:Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax"/> instance.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.MethodExtractWalker.VisitArgument(Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax)">
+            <summary>
+            Visits arguments.
+            </summary>
+            <param name="node">
+            A <see cref="T:Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax"/> instance.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.MethodExtractWalker.VisitMemberAccessExpression(Microsoft.CodeAnalysis.CSharp.Syntax.MemberAccessExpressionSyntax)">
+            <summary>
+            Visits member access expression.
+            </summary>
+            <param name="node">
+            A <see cref="T:Microsoft.CodeAnalysis.CSharp.Syntax.MemberAccessExpressionSyntax"/> instance.
+            </param>
+        </member>
+        <member name="T:JsonExecutor.Framework.Expressions.Variable">
+            <summary>
+            Represents a variable.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.Expressions.Variable.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.Expressions.Variable"/> class.
+            </summary>
+            <param name="name">
+            Name of the variable.
+            </param>
+        </member>
+        <member name="P:JsonExecutor.Framework.Expressions.Variable.Name">
+            <summary>
+            Gets name of the variable.
+            </summary>
+        </member>
+        <member name="T:JsonExecutor.Framework.JsonExecutor">
+            <summary>
+            Executes the APIs defined in JSON.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.JsonExecutor._traceAction">
+            <summary>
+            Trace action.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.JsonExecutor._tests">
+            <summary>
+            Tests information.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.JsonExecutor._methodProxy">
+            <summary>
+            Method proxy.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.#ctor(System.String,System.String,System.Action{JsonExecutor.Framework.ExecuteTraceInfo})">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.JsonExecutor"/> class.
+            </summary>
+            <param name="testDataJson">
+            Json data to be executed.
+            </param>
+            <param name="configJson">
+            Configuration json which contains types.
+            </param>
+            <param name="traceAction">
+            A <see cref="T:System.Action`1"/> of <see cref="T:JsonExecutor.Framework.ExecuteTraceInfo"/> for tracking the execution.
+            </param>
+        </member>
+        <member name="P:JsonExecutor.Framework.JsonExecutor.AvailableMethods">
+            <summary>
+            Gets available methods.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.Execute(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Executes with given variables.
+            </summary>
+            <param name="variables">
+            A <see cref="T:System.Collections.Generic.IDictionary`2"/> of variables.
+            </param>
+            <returns>
+            Execution results.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.ExecuteAndVerify(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Excutes and also verifies the results with expected values.
+            </summary>
+            <param name="variables">
+            A <see cref="T:System.Collections.Generic.IDictionary`2"/> of variables.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.VerifyResults(JsonExecutor.Framework.TestInfo,JsonExecutor.Framework.ResultsType,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Verifies the results of a test.
+            </summary>
+            <param name="test">
+            A <see cref="T:JsonExecutor.Framework.TestInfo"/> of test.
+            </param>
+            <param name="resultsType">
+            A <see cref="T:JsonExecutor.Framework.ResultsType"/> of result type.
+            </param>
+            <param name="results">
+            A <see cref="T:System.Collections.Generic.IDictionary`2"/> of results.
+            </param>
+            <param name="variables">
+            A <see cref="T:System.Collections.Generic.IDictionary`2"/> of variables.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.VerifyException(JsonExecutor.Framework.TestInfo,JsonExecutor.Framework.ExpectedExceptionInfo,System.Exception)">
+            <summary>
+            Verifies exception.
+            </summary>
+            <param name="testInfo">
+            A <see cref="T:JsonExecutor.Framework.TestInfo"/>.
+            </param>
+            <param name="expected">
+            A <see cref="T:JsonExecutor.Framework.ExpectedExceptionInfo"/> expected exception info.
+            </param>
+            <param name="exception">
+            A <see cref="T:System.Exception"/> of actual.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.ExecuteTest(JsonExecutor.Framework.TestInfo,System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IDictionary{System.String,System.Object},JsonExecutor.Framework.ResultsType@)">
+            <summary>
+            Excute tests.
+            </summary>
+            <param name="test">
+            A <see cref="T:JsonExecutor.Framework.TestInfo"/>.
+            </param>
+            <param name="variables">
+            A <see cref="T:System.Collections.Generic.IDictionary`2"/> variables.
+            </param>
+            <param name="previousTestResults">
+            A <see cref="T:System.Collections.Generic.IDictionary`2"/> of previous results.
+            </param>
+            <param name="resultsType">
+            Results type.
+            </param>
+            <returns>
+            Results dictionary.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.EvaluateParameters(System.Collections.Generic.IDictionary{System.String,System.Object},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Evaluates parameters.
+            </summary>
+            <param name="parameters">
+            A <see cref="T:System.Collections.Generic.IDictionary`2"/> parameters.
+            </param>
+            <param name="variables">
+            A <see cref="T:System.Collections.Generic.IDictionary`2"/> variables.
+            </param>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IDictionary`2"/> evaluated with variables.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.ProcessJObject(Newtonsoft.Json.Linq.JObject,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Process JObject.
+            </summary>
+            <param name="jObject">
+            JObject instance.
+            </param>
+            <param name="variables">
+            Variables to be used.
+            </param>
+            <returns>
+            Evaluated JObject instance.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.ProcessJArray(Newtonsoft.Json.Linq.JArray,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Process JArray.
+            </summary>
+            <param name="array">
+            JArray instance.
+            </param>
+            <param name="variables">
+            Variables to be used.
+            </param>
+            <returns>
+            Processed JArray with variables.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.ProcessJToken(Newtonsoft.Json.Linq.JToken,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Process JToken.
+            </summary>
+            <param name="token">
+            JToken instance.
+            </param>
+            <param name="variables">
+            Variables to be used.
+            </param>
+            <returns>
+            Processed JToken.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.Evaluate(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Evaluate expression.
+            </summary>
+            <param name="expression">
+            Expression to be evaluated.
+            </param>
+            <param name="variables">
+            Variables to be used.
+            </param>
+            <returns>
+            Evaluated instance.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.EvaluateValue(JsonExecutor.Framework.Expressions.Variable,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Evaluate value.
+            </summary>
+            <param name="variable">
+            A Variable instance.
+            </param>
+            <param name="variables">
+            Variables to be used.
+            </param>
+            <returns>
+            Evaluated variable instance.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.EvaluateValue(JsonExecutor.Framework.Expressions.Argument,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Evaluate argument value.
+            </summary>
+            <param name="arg">
+            A <see cref="T:JsonExecutor.Framework.Expressions.Argument"/> instance.
+            </param>
+            <param name="variables">
+            Variables to be used.
+            </param>
+            <returns>
+            Evaluated value.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.Verify``1(JsonExecutor.Framework.TestInfo,System.Linq.Expressions.Expression{System.Func{``0}},System.Object)">
+            <summary>
+            Verifies the test.
+            </summary>
+            <typeparam name="T">
+            Type name.
+            </typeparam>
+            <param name="test">
+            A <see cref="T:JsonExecutor.Framework.TestInfo"/> instance.
+            </param>
+            <param name="selectorExpression">
+            A <see cref="T:System.Func`1"/> expression.
+            </param>
+            <param name="expectedValue">
+            Expected value.
+            </param>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.TryExpression(System.String,System.String@)">
+            <summary>
+            Gets expression if given value is a proper expression.
+            </summary>
+            <param name="val">
+            Value to be parsed for expression.
+            </param>
+            <param name="expression">
+            Expression.
+            </param>
+            <returns>
+            true if it is expression.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.JsonExecutor.SendVerificationTraceInfo(JsonExecutor.Framework.TestInfo,System.Object,System.Object)">
+            <summary>
+            Send verification trace info.
+            </summary>
+            <param name="testInfo">
+            A <see cref="T:JsonExecutor.Framework.TestInfo"/> instance.
+            </param>
+            <param name="actual">
+            Actual value.
+            </param>
+            <param name="expected">
+            Expected value.
+            </param>
+        </member>
+        <member name="T:JsonExecutor.Framework.MethodProxy">
+            <summary>
+            Proxy for method.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.MethodProxy._traceInfo">
+            <summary>
+            Trace info.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.MethodProxy._methods">
+            <summary>
+            Methods list.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.MethodProxy.#ctor(System.Collections.Generic.IEnumerable{System.String},System.Action{JsonExecutor.Framework.ExecuteTraceInfo})">
+            <summary>
+            Initializes a new instance of the <see cref="T:JsonExecutor.Framework.MethodProxy"/> class.
+            </summary>
+            <param name="typeInfo">
+            Type information fromw which methods needs to be parsed.
+            </param>
+            <param name="traceInfo">
+            Trace info emitter action.
+            </param>
+        </member>
+        <member name="P:JsonExecutor.Framework.MethodProxy.ReturnType">
+            <summary>
+            Gets or sets return type of the method executed.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.MethodProxy.Methods">
+            <summary>
+            Gets methods.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.MethodProxy.Execute(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Executes method.
+            </summary>
+            <param name="name">
+            Method name.
+            </param>
+            <param name="parameters">
+            Method parameters.
+            </param>
+            <returns>
+            Return value from method execution.
+            </returns>
+        </member>
+        <member name="T:JsonExecutor.Framework.ResultsType">
+            <summary>
+            Execution result type.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.ResultsType.Primitive">
+            <summary>
+            Primitive.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.ResultsType.String">
+            <summary>
+            String type.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.ResultsType.Void">
+            <summary>
+            No return type.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.ResultsType.Dictionary">
+            <summary>
+            Dictionary.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.ResultsType.Object">
+            <summary>
+            Generic object.
+            </summary>
+        </member>
+        <member name="T:JsonExecutor.Framework.TestConfig">
+            <summary>
+            Test Configuration.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.TestConfig.TypeName">
+            <summary>
+            Gets or sets type name.
+            </summary>
+        </member>
+        <member name="T:JsonExecutor.Framework.TestInfo">
+            <summary>
+            Test information.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.TestInfo.Name">
+            <summary>
+            Gets or sets test name.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.TestInfo.Api">
+            <summary>
+            Gets or sets api of the test.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.TestInfo.Parameters">
+            <summary>
+            Gets or sets parameters.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.TestInfo.Variables">
+            <summary>
+            Gets or sets variables.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.TestInfo.Extracts">
+            <summary>
+            Gets or sets extracts.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.TestInfo.Expected">
+            <summary>
+            Gets or sets expected values.
+            </summary>
+        </member>
+        <member name="P:JsonExecutor.Framework.TestInfo.ReturnValue">
+            <summary>
+            Gets return value.
+            </summary>
+        </member>
+        <member name="M:JsonExecutor.Framework.TestInfo.GetExpectedValue``1(System.String)">
+            <summary>
+            Gets expected value.
+            </summary>
+            <typeparam name="T">
+            Type name.
+            </typeparam>
+            <param name="name">
+            Name of the expected parameter.
+            </param>
+            <returns>
+            Gets value.
+            </returns>
+        </member>
+        <member name="M:JsonExecutor.Framework.TestInfo.GetExpectedResults(System.Boolean)">
+            <summary>
+            Gets expected results.
+            </summary>
+            <param name="convertJArray">
+            A value indicating whether to convert JArray in to string array or not.
+            </param>
+            <returns>
+            Expected results value.
+            </returns>
+        </member>
+        <member name="T:JsonExecutor.Framework.TraceType">
+            <summary>
+            Trace type.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.TraceType.MethodFinished">
+            <summary>
+            Method finished executing.
+            </summary>
+        </member>
+        <member name="F:JsonExecutor.Framework.TraceType.Verification">
+            <summary>
+            Verification state.
+            </summary>
+        </member>
+    </members>
+</doc>

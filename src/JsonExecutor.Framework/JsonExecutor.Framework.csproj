@@ -1,14 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+<PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0-alpha1</Version>
+    <PackageTags>json executor</PackageTags>
+    <PackageReleaseNotes>Initial checin</PackageReleaseNotes>
+    <Description>JSON executor for executing test cases through JSON configuration.</Description>
+    <PackageProjectUrl>https://github.com/sairamaj/jsonexecutor</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sairamaj/jsonexecutor</RepositoryUrl>
+  </PropertyGroup>
+
+<PropertyGroup>
+  <CodeAnalysisRuleSet>$(SolutionDir)\build\Source.ruleset</CodeAnalysisRuleSet>
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <DocumentationFile>C:\dev\sairamaj\jsonExecutor\src\JsonExecutor.Framework\JsonExecutor.Framework.xml</DocumentationFile>
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <DocumentationFile>C:\dev\sairamaj\jsonExecutor\src\JsonExecutor.Framework\JsonExecutor.Framework.xml</DocumentationFile>
+</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.9.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.3.1" />
     <PackageReference Include="Newtonsoft.json" Version="12.0.3" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.113">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

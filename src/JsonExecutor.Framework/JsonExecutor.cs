@@ -12,8 +12,7 @@ using Newtonsoft.Json.Linq;
 namespace JsonExecutor.Framework
 {
     /// <summary>
-    /// Json Executor.
-    /// Executes the json which contains api, expressions and variables.
+    /// Executes the APIs defined in JSON.
     /// </summary>
     public class JsonExecutor
     {
