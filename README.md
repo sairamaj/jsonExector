@@ -3,7 +3,7 @@ Executes the api defined in Json format. Define API one time and use JSON to cre
 
 ### Installing JsonExecutor
 
-You should install [JsonExecutor with NuGet](https://www.nuget.org/packages/JsonExecutor):
+You should install [JsonExecutor with NuGet](https://www.nuget.org/packages/JsonExecutor.Framework):
 
     Install-Package JsonExecutor
     
@@ -111,6 +111,8 @@ Write integration tests through configuration instead of code using JSON file fo
   }
 ]
 ```
+See __sample__ for more test case types.
+
 ## Using API
 ```csharp
 * Define test json file
@@ -128,7 +130,7 @@ Console uses the JsonExecutor.Framework and one can execute set of test cases th
 
 Have the following files in a directory ( see the Sample)
 
-### List the test cases
+### Directory structure
 ![dirstruture](doc/images/testdirstructure.PNG)
 
 
@@ -142,7 +144,6 @@ Have the following files in a directory ( see the Sample)
 
 Run __JsonExecutor.Console.exe__
 
-### Parameter
 | Parameter         |  Description                                | Required  |
 |-------------------|---------------------------------------------|-----------|
 | -p (--path)       |  Base path of the test cases                |   Yes     |
@@ -152,8 +153,11 @@ Run __JsonExecutor.Console.exe__
 | -v (--verbose)    |  Shows the debug messages                   |   No      |
 
 ## Running Sample
-Naviage it to jsonexecutor\src\JsonExecutor.Console\bin
-*JsonExecutor.Console.exe* -p ..\..\..\sample -f Math -r to run the test cases
+Naviage it to jsonexecutor\src\JsonExecutor.Console\bin and run
+
+```cmd
+JsonExecutor.Console.exe -p ..\..\..\sample -f Math -r 
+```
 
 ### List the test cases
 ![consoletest](doc/images/consoletest.PNG)
