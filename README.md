@@ -128,6 +128,10 @@ Console uses the JsonExecutor.Framework and one can execute set of test cases th
 
 Have the following files in a directory ( see the Sample)
 
+### List the test cases
+![dirstruture](doc/images/testdirstructure.PNG)
+
+
 | Name                |  Description                                           | Directory/File  |
 |---------------------|--------------------------------------------------------|-----------------|
 | *app.config*        |  Standard .NET app.config used by the APIs             |   File          |
@@ -152,10 +156,10 @@ Naviage it to jsonexecutor\src\JsonExecutor.Console\bin
 *JsonExecutor.Console.exe* -p ..\..\..\sample -f Math -r to run the test cases
 
 ### List the test cases
-![consoletest](.\doc\images\consoletest.png)
+![consoletest](doc/images/consoletest.PNG)
 
 ### Filter the test cases
-![consolefilter](.\doc\images\consolefilter.png)
+![consolefilter](doc/images/consolefilter.PNG)
 
 ### Run the test cases
-![consolerun](.\doc\images\consolerun.png)
+![consolerun](doc/images/consolerun.PNG)
