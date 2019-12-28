@@ -1,0 +1,11 @@
+[
+  {
+    "TypeName": "JsonExecutor.Framework.Unit.Tests.TestTypes.Math,JsonExecutor.Framework.Unit.Tests"
+  },
+  {
+    "TypeName": "JsonExecutor.Framework.Unit.Tests.TestTypes.Sample,JsonExecutor.Framework.Unit.Tests"
+  },
+  {
+    "TypeName": "JsonExecutor.Framework.Unit.Tests.TestTypes.Utilities,JsonExecutor.Framework.Unit.Tests"
+  }
+]
