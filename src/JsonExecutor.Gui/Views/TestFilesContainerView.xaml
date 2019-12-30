@@ -4,9 +4,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JsonExecutor.Gui.Views"
+             xmlns:viewModel="clr-namespace:JsonExecutor.Gui.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="ResultsViewStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding TestStatus}" Value="Error">
+                    <Setter Property="Control.Foreground" Value="Red"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TestStatus}" Value="Success">
+                    <Setter Property="Control.Foreground" Value="Green"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TestStatus}" Value="Running">
+                    <Setter Property="Control.Foreground" Value="Purple"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <TreeView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding TestFileContainers}">
+
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type viewModel:TestFileContainerViewModel}"  ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsChecked}"/>
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+
+                <HierarchicalDataTemplate DataType="{x:Type viewModel:TestFileViewModel}"  ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource ResultsViewStyle}">
+                        <CheckBox IsChecked="{Binding IsEnabled}" />
+                        <TextBlock Text="{Binding Name}"/>
+
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Run" Command="{Binding Path=RunCommand}"/>
+                                <MenuItem Header="RunVerify" Command="{Binding Path=RunVerifyCommand}"/>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+
+                    </StackPanel>
+
+                </HierarchicalDataTemplate>
+
+            </TreeView.Resources>
+        </TreeView>
     </Grid>
 </UserControl>

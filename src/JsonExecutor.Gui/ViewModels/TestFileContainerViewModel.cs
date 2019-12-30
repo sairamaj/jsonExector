@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wpf.Util.Core.ViewModels;
 
 namespace JsonExecutor.Gui.ViewModels
@@ -23,5 +20,20 @@ namespace JsonExecutor.Gui.ViewModels
             this.IsExpanded = true;
         }
 
+        /// <summary>
+        /// Gets test file container path.
+        /// </summary>
+        public string TestFileContainerPath { get; }
+
+        /// <summary>
+        /// Loads test files.
+        /// </summary>
+        protected override void LoadChildren()
+        {
+            base.LoadChildren();
+            Directory.GetFiles(Path.Combine(this.TestFileContainerPath,"tests"), "*.json")
+                .Select(t => new TestFileViewModel(t, true)).ToList()
+                .ForEach(t => this.Children.Add(t));
+        }
     }
 }

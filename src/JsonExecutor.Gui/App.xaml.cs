@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using JsonExecutor.Gui.ViewModels;
 using Wpf.Util.Core.Extensions;
 
 namespace JsonExecutor.Gui
@@ -27,6 +28,7 @@ namespace JsonExecutor.Gui
             try
             {
                 var win = new MainWindow();
+                win.DataContext = new MainViewModel();
                 win.Show();
             }
             catch (Exception exception)
