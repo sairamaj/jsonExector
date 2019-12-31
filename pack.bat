@@ -1,0 +1,1 @@
+msbuild jsonExecutor.sln /t:pack /p:Version=1.0.0-alpha1
