@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="JsonExecutor.Gui.Views.TraceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Wpf.Util.Core.ViewModels;assembly=Wpf.Util.Core"
+             xmlns:viewModel="clr-namespace:JsonExecutor.Gui.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="DataHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </UserControl.Resources>
+    <TreeView ItemsSource="{Binding TraceMessages}">
+        <TreeView.Resources>
+            <HierarchicalDataTemplate DataType="{x:Type viewModel:MethodViewTreeViewModel}"  ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" Margin="3,0,0,0" FontWeight="Bold"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type viewModel:MethodInputViewModel}"  ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" Margin="3,0,0,0"  Foreground="Blue"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type viewModel:MethodOutputViewModel}"  ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" Margin="3,0,0,0" Foreground="Green"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type viewModels:ObjectContainerViewModel}"  ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" Margin="3,0,0,0" />
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type viewModels:ObjectTreeViewModel}"  ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" Margin="3,0,0,0" />
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type viewModels:NameValueTreeViewModel}"  ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" Margin="3,0,0,0" />
+                    <TextBlock Text="{Binding Value}" Margin="3,0,0,0" FontWeight="Bold"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type viewModels:ExceptionTreeViewItemViewModel}"  ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}"  Foreground="Red"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type viewModels:NullObjectViewModel}"  ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}"  Foreground="Red"/>
+                    <TextBlock Text="{Binding Message}"  Foreground="Red" Margin="3,0,0,0"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+            <HierarchicalDataTemplate DataType="{x:Type viewModel:VerificationViewModel}"  ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}"  Foreground="BlueViolet"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+
+        </TreeView.Resources>
+    </TreeView>
+
+</UserControl>

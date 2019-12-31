@@ -6,8 +6,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Autofac;
 using JsonExecutor.Gui.ViewModels;
+using Wpf.Util.Core;
 using Wpf.Util.Core.Extensions;
+using Wpf.Util.Core.Registration;
 
 namespace JsonExecutor.Gui
 {
@@ -27,8 +30,11 @@ namespace JsonExecutor.Gui
 
             try
             {
-                var win = new MainWindow();
-                win.DataContext = new MainViewModel();
+                var builder = new ContainerBuilder();
+                var serviceLocator = ServiceLocatorFactory.Create(builder);
+                var commandTreeMapper = serviceLocator.Resolve<ICommandTreeItemViewMapper>();
+                var win = new MainWindow(commandTreeMapper);
+                win.DataContext = new MainViewModel(commandTreeMapper);
                 win.Show();
             }
             catch (Exception exception)

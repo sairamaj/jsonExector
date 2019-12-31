@@ -58,10 +58,22 @@
     </ApplicationDefinition>
     <Compile Include="Model\TestStatus.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MethodInputViewModel.cs" />
+    <Compile Include="ViewModels\MethodOutputViewModel.cs" />
+    <Compile Include="ViewModels\MethodViewTreeViewModel.cs" />
+    <Compile Include="ViewModels\NullObjectViewModel.cs" />
     <Compile Include="ViewModels\TestFileContainerViewModel.cs" />
+    <Compile Include="ViewModels\TestFileDataViewModel.cs" />
     <Compile Include="ViewModels\TestFileViewModel.cs" />
+    <Compile Include="ViewModels\VerificationViewModel.cs" />
     <Compile Include="Views\TestFilesContainerView.xaml.cs">
       <DependentUpon>TestFilesContainerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestView.xaml.cs">
+      <DependentUpon>TestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TraceView.xaml.cs">
+      <DependentUpon>TraceView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +88,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\TestFilesContainerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TraceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,12 +127,24 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro">
+      <Version>2.0.0-alpha0660</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="Wpf.Util.Core">
       <Version>1.0.0-alpha1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JsonExecutor.Framework\JsonExecutor.Framework.csproj">
+      <Project>{2951a15c-a914-444f-bf64-83c4d758e703}</Project>
+      <Name>JsonExecutor.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AvalonJsonSyntax.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

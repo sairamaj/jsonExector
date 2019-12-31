@@ -1,28 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using JsonExecutor.Gui.Views;
+using Wpf.Util.Core;
+using Wpf.Util.Core.ViewModels;
 
 namespace JsonExecutor.Gui
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        public MainWindow()
+        public MainWindow(ICommandTreeItemViewMapper viewMapper)
         {
             InitializeComponent();
+            this.TestFilesContainerView.SelectionChangedEvent += (s, e) =>
+            {
+                if (!(e.SelectedItem is CommandTreeViewModel viewModel))
+                {
+                    return;
+                }
+
+                var ctrl = new TestView { DataContext = viewModel.DataContext };
+                this.DetailViewContainer.ShowView(ctrl);
+            };
         }
     }
 }

@@ -42,13 +42,18 @@ namespace JsonExecutor.Gui.ViewModels
                 await this.RunAsync(true);
             });
 
-            //this.DataContext = this.TestDataViewModel = new TestFileDataViewModel(Path.GetFileNameWithoutExtension(testFile), testFile);
+            this.DataContext = this.TestDataViewModel = new TestFileDataViewModel(Path.GetFileNameWithoutExtension(testFile), testFile);
         }
 
         /// <summary>
         /// Gets test file name.
         /// </summary>
         public string TestFile { get; }
+
+        /// <summary>
+        /// Gets or sets test data view model.
+        /// </summary>
+        public TestFileDataViewModel TestDataViewModel { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether test is enabled or not.

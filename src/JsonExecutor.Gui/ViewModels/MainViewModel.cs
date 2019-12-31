@@ -7,7 +7,7 @@ namespace JsonExecutor.Gui.ViewModels
 {
     class MainViewModel
     {
-        public MainViewModel()
+        public MainViewModel(ICommandTreeItemViewMapper viewMapper)
         {
             this.TestFileContainers = new SafeObservableCollection<TestFileContainerViewModel>();
             this.TestFileContainers.Add(new TestFileContainerViewModel(@"c:\temp\temp\sample"));   // will add browsing here.
