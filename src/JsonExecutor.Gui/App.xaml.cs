@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using Autofac;
@@ -39,11 +40,15 @@ namespace JsonExecutor.Gui
 
                 if (testPath == null)
                 {
-                    return;
+                    System.Environment.Exit(-1);
                 }
 
-                var win = new MainWindow();
-                win.DataContext = new MainViewModel(testPath);
+                if (!Validate(testPath))
+                {
+                    System.Environment.Exit(-2);
+                }
+
+                var win = new MainWindow {DataContext = new MainViewModel(testPath)};
                 win.Show();
             }
             catch (Exception exception)
@@ -64,5 +69,42 @@ namespace JsonExecutor.Gui
 
             return null;
         }
+
+        bool Validate(string testPath)
+        {
+            // Check bin directory
+            var binPath = Path.Combine(testPath, "bin");
+            if (!Directory.Exists(binPath))
+            {
+                MessageBox.Show($"{binPath} does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            // Check tests directory
+            var testsPath = Path.Combine(testPath, "tests");
+            if (!Directory.Exists(testsPath))
+            {
+                MessageBox.Show($"{testsPath} does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            // Check config.json
+            var configJson = Path.Combine(testPath, "config.json");
+            if (!File.Exists(configJson))
+            {
+                MessageBox.Show($"{configJson} does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            var variablesJson = Path.Combine(testPath, "variables.json");
+            if (!File.Exists(variablesJson))
+            {
+                MessageBox.Show($"{variablesJson} does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return true;
+        }
+       
     }
 }

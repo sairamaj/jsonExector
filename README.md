@@ -167,3 +167,9 @@ JsonExecutor.Console.exe -p ..\..\..\sample -f Math -r
 
 ### Run the test cases
 ![consolerun](doc/images/consolerun.PNG)
+
+# JsonExecutor.Gui
+GUI version can be used for testing.
+
+## ScreenShot
+![gui](doc/images/gui.png)
