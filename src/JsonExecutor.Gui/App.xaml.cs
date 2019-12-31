@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using Autofac;
+using JsonExecutor.Gui.Repository;
 using JsonExecutor.Gui.ViewModels;
-using Wpf.Util.Core;
 using Wpf.Util.Core.Extensions;
 using Wpf.Util.Core.Registration;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace JsonExecutor.Gui
 {
@@ -31,10 +29,21 @@ namespace JsonExecutor.Gui
             try
             {
                 var builder = new ContainerBuilder();
+                builder.RegisterType<Settings>().As<ISettings>();
                 var serviceLocator = ServiceLocatorFactory.Create(builder);
-                var commandTreeMapper = serviceLocator.Resolve<ICommandTreeItemViewMapper>();
-                var win = new MainWindow(commandTreeMapper);
-                win.DataContext = new MainViewModel(commandTreeMapper);
+                var testPath = serviceLocator.Resolve<ISettings>().TestPath;
+                if (string.IsNullOrEmpty(testPath))
+                {
+                    testPath = GetTestFilePath();
+                }
+
+                if (testPath == null)
+                {
+                    return;
+                }
+
+                var win = new MainWindow();
+                win.DataContext = new MainViewModel(testPath);
                 win.Show();
             }
             catch (Exception exception)
@@ -42,6 +51,18 @@ namespace JsonExecutor.Gui
                 Console.WriteLine(exception);
                 throw;
             }
+        }
+
+        string GetTestFilePath()
+        {
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            var result = dlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                return dlg.SelectedPath;
+            }
+
+            return null;
         }
     }
 }

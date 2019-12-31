@@ -22,10 +22,37 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
+        <Style x:Key="RunButtonStyles">
+            <Setter Property="Control.IsEnabled" Value="True"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid>
-        <TreeView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding TestFileContainers}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical"  HorizontalAlignment="Right" Style="{StaticResource RunButtonStyles}">
+            <!--<StackPanel Orientation="Horizontal">
+                <Button Content="Select All" Command="{Binding SelectAllCommand}"/>
+                <Button Content="Select None"  Command="{Binding SelectNoneCommand}" Margin="10,0,10,0"/>
+            </StackPanel>-->
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0"  HorizontalAlignment="Right">
+                <Button Content="Run" Command="{Binding RunCommand}" Margin="0,0,10,0"/>
+                <!--<Button Content="RunVerify" Command="{Binding RunVerifyCommand}" Margin="10,0,10,0"/>-->
+            </StackPanel>
+        </StackPanel>
+
+
+        <TreeView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding TestFileContainers}">
 
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type viewModel:TestFileContainerViewModel}"  ItemsSource="{Binding Children}">

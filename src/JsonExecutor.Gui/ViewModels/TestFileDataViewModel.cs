@@ -19,6 +19,8 @@ namespace JsonExecutor.Gui.ViewModels
     /// </summary>
     public class TestFileDataViewModel : CoreViewModel
     {
+        private readonly string _basePath;
+
         /// <summary>
         /// Test file name.
         /// </summary>
@@ -27,15 +29,17 @@ namespace JsonExecutor.Gui.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="TestFileDataViewModel"/> class.
         /// </summary>
+        /// <param name="basePath">Base path of the test file.</param>
         /// <param name="name">
         /// Test name.
         /// </param>
         /// <param name="fileName">
         /// Test file data.
         /// </param>
-        public TestFileDataViewModel(string name, string fileName)
+        public TestFileDataViewModel(string basePath, string name, string fileName)
         {
             this.Name = name;
+            this._basePath = basePath;
             this._fileName = fileName;
             if (File.Exists(fileName))
             {
@@ -84,40 +88,6 @@ namespace JsonExecutor.Gui.ViewModels
         public ObservableCollection<TreeViewItemViewModel> TraceMessages { get; }
 
         /// <summary>
-        /// Gets configuration JSON file data.
-        /// </summary>
-        public string ConfigJson
-        {
-            get
-            {
-                var configJsonFile = Path.Combine(Path.GetDirectoryName(this._fileName), "config.json");
-                if (File.Exists(configJsonFile))
-                {
-                    return File.ReadAllText(configJsonFile);
-                }
-
-                return string.Empty;
-            }
-        }
-
-        /// <summary>
-        /// Gets variables associated with this data.
-        /// </summary>
-        public IDictionary<string, object> Variables
-        {
-            get
-            {
-                var variablesJsonFile = Path.Combine(Path.GetDirectoryName(this._fileName), "variables.json");
-                if (File.Exists(variablesJsonFile))
-                {
-                    return JsonConvert.DeserializeObject<IDictionary<string, object>>(File.ReadAllText(variablesJsonFile));
-                }
-
-                return new Dictionary<string, object>();
-            }
-        }
-
-        /// <summary>
         /// Executes the test.
         /// </summary>
         /// <param name="isVerify">
@@ -134,19 +104,11 @@ namespace JsonExecutor.Gui.ViewModels
                 {
                     this.TraceMessages.Clear();
                     this.TestStatus = TestStatus.Running;
-                    var executor = new Framework.JsonExecutor(this.Data, this.ConfigJson, this.TraceAction);
-                    if (isVerify)
-                    {
-                        executor.ExecuteAndVerify(this.Variables);
-                        this.ResultsData = "Success";
-                    }
-                    else
-                    {
-                        var output = executor.Execute(this.Variables);
-                        this.ResultsData = JsonConvert.SerializeObject(output);
-                    }
 
-                    this.TestStatus = TestStatus.Success;
+                    var executor = new Executor(this._basePath, this.Name);
+                    var result = executor.Execute(new Dictionary<string, object>(), true);
+                    this.ResultsData = result.Message;
+                    this.TestStatus = result.Result ? TestStatus.Success : TestStatus.Error;
                 }
                 catch (AssertionFailedException ae)
                 {

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using JsonExecutor.Gui.Model;
@@ -25,13 +26,14 @@ namespace JsonExecutor.Gui.ViewModels
         /// <summary>
         /// Initializes a new instance of the <see cref="TestFileViewModel"/> class.
         /// </summary>
+        /// <param name="basePath">Base path of the test files.</param>
         /// <param name="testFile">
         /// Test file name.
         /// </param>
         /// <param name="isEnabled">
         /// Flag for enabling or disabling the test.
         /// </param>
-        public TestFileViewModel(string testFile, bool isEnabled)
+        public TestFileViewModel(string basePath, string testFile, bool isEnabled)
             : base(null, Path.GetFileNameWithoutExtension(testFile), testFile)
         {
             this.TestFile = testFile;
@@ -42,7 +44,10 @@ namespace JsonExecutor.Gui.ViewModels
                 await this.RunAsync(true);
             });
 
-            this.DataContext = this.TestDataViewModel = new TestFileDataViewModel(Path.GetFileNameWithoutExtension(testFile), testFile);
+            this.DataContext = this.TestDataViewModel = new TestFileDataViewModel(
+                basePath,
+                Path.GetFileNameWithoutExtension(testFile), 
+                testFile);
         }
 
         /// <summary>
@@ -110,11 +115,11 @@ namespace JsonExecutor.Gui.ViewModels
             try
             {
                 this.TestStatus = TestStatus.Running;
-             //   await this.TestDataViewModel.Execute(verify);
+                await this.TestDataViewModel.Execute(verify);
             }
             finally
             {
-               // this.TestStatus = this.TestDataViewModel.TestStatus;
+                this.TestStatus = this.TestDataViewModel.TestStatus;
             }
         }
     }

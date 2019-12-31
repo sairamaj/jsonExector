@@ -9,6 +9,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="JsonExecutor.Gui" Height="650" Width="1200">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="325"/>

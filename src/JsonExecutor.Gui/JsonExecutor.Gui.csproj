@@ -56,7 +56,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Executor.cs" />
+    <Compile Include="Model\TestResult.cs" />
     <Compile Include="Model\TestStatus.cs" />
+    <Compile Include="Repository\Settings.cs" />
+    <Compile Include="Repository\ISettings.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MethodInputViewModel.cs" />
     <Compile Include="ViewModels\MethodOutputViewModel.cs" />
@@ -127,6 +131,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AppDomainToolkit">
+      <Version>1.0.4.3</Version>
+    </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>2.0.0-alpha0660</Version>
     </PackageReference>

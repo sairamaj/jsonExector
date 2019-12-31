@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AppDomainToolkit;
-using JsonExecutor.Console.Model;
+using JsonExecutor.Gui.Model;
 using Newtonsoft.Json;
 
-namespace JsonExecutor.Console
+namespace JsonExecutor.Gui
 {
     [Serializable]
     public class Executor
@@ -125,7 +125,7 @@ namespace JsonExecutor.Console
                     System.Console.WriteLine(e.ToString());
                 }
 
-                return new TestResult(this.TestName, false, e.Message);
+                return new TestResult(this.TestName, false, e.ToString());
             }
         }
     }

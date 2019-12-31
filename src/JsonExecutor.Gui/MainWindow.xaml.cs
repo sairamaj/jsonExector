@@ -9,7 +9,7 @@ namespace JsonExecutor.Gui
     /// </summary>
     public partial class MainWindow
     {
-        public MainWindow(ICommandTreeItemViewMapper viewMapper)
+        public MainWindow()
         {
             InitializeComponent();
             this.TestFilesContainerView.SelectionChangedEvent += (s, e) =>
