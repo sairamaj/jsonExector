@@ -8,6 +8,7 @@ namespace JsonExecutor.Framework
     /// <summary>
     /// Test information.
     /// </summary>
+    [Serializable]
     public class TestInfo
     {
         /// <summary>

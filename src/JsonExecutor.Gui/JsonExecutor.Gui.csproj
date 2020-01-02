@@ -61,6 +61,7 @@
     <Compile Include="Model\TestStatus.cs" />
     <Compile Include="Repository\Settings.cs" />
     <Compile Include="Repository\ISettings.cs" />
+    <Compile Include="TraceLogger.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MethodInputViewModel.cs" />
     <Compile Include="ViewModels\MethodOutputViewModel.cs" />

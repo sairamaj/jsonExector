@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using AppDomainToolkit;
+using JsonExecutor.Framework;
 using JsonExecutor.Gui.Model;
 using Newtonsoft.Json;
 
@@ -50,7 +52,7 @@ namespace JsonExecutor.Gui
 
         public string TestName { get; }
 
-        public TestResult Execute(IDictionary<string, object> variables, bool verbose)
+        public TestResult Execute(IDictionary<string, object> variables, bool verbose, Action<ExecuteTraceInfo> onExecution)
         {
             using (var context = AppDomainContext.Create(new AppDomainSetup()
             {
@@ -58,7 +60,28 @@ namespace JsonExecutor.Gui
             }))
             {
                 context.RemoteResolver.AddProbePath(this._binPath);
-                return RemoteFunc.Invoke(context.Domain, variables, verbose, this.InternalExecute);
+                List<string> traces = new List<string>();
+                TestResult result = null;
+                try
+                {
+                    result = RemoteFunc.Invoke(context.Domain, variables, verbose, this.InternalExecute);
+                }
+                finally
+                {
+                    result?.Traces.ToList().ForEach(trace =>
+                        {
+                            try
+                            {
+                                onExecution(JsonConvert.DeserializeObject<ExecuteTraceInfo>(trace));
+                            }
+                            catch (JsonSerializationException e)
+                            {
+                                TraceLogger.Warning($"[Exception:{e} While deserializing trace.");
+                            }
+                        });
+                }
+
+                return result;
             }
         }
 
@@ -79,11 +102,12 @@ namespace JsonExecutor.Gui
             var testDataJson = File.ReadAllText(this._testFileName);
             var configJson = File.ReadAllText(this._configFile);
             var executor = new Framework.JsonExecutor(testDataJson, configJson, track => { });
-            return executor.AvailableMethods.ToDictionary(k=> k.Key,k=> k.Key);
+            return executor.AvailableMethods.ToDictionary(k => k.Key, k => k.Key);
         }
 
         private TestResult InternalExecute(IDictionary<string, object> runtimeVariables, bool verboseOptions)
         {
+            var traceList = new List<string>();
             try
             {
                 var ret = false;
@@ -99,6 +123,15 @@ namespace JsonExecutor.Gui
 
                 var executor = new Framework.JsonExecutor(testDataJson, configJson, track =>
                 {
+                    try
+                    {
+                       traceList.Add(JsonConvert.SerializeObject(track));
+                    }
+                    catch (JsonSerializationException e)
+                    {
+                        TraceLogger.Warning($"[Exception:{e} While serializing trace.");
+                    }
+
                     if (verboseOptions)
                     {
                         System.Console.WriteLine(track.TraceType);
@@ -111,7 +144,7 @@ namespace JsonExecutor.Gui
                 });
 
                 executor.ExecuteAndVerify(fileVariables);
-                return new TestResult(this.TestName, true, "Success");
+                return new TestResult(this.TestName, true, "Success", traceList);
             }
             catch (Exception e)
             {
@@ -125,7 +158,7 @@ namespace JsonExecutor.Gui
                     System.Console.WriteLine(e.ToString());
                 }
 
-                return new TestResult(this.TestName, false, e.ToString());
+                return new TestResult(this.TestName, false, e.ToString(), traceList);
             }
         }
     }

@@ -106,7 +106,7 @@ namespace JsonExecutor.Gui.ViewModels
                     this.TestStatus = TestStatus.Running;
 
                     var executor = new Executor(this._basePath, this.Name);
-                    var result = executor.Execute(new Dictionary<string, object>(), true);
+                    var result = executor.Execute(new Dictionary<string, object>(), true, TraceAction);
                     this.ResultsData = result.Message;
                     this.TestStatus = result.Result ? TestStatus.Success : TestStatus.Error;
                 }

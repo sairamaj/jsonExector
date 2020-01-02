@@ -6,6 +6,7 @@ namespace JsonExecutor.Framework
     /// <summary>
     /// Execution trace information.
     /// </summary>
+    [Serializable]
     public class ExecuteTraceInfo
     {
         /// <summary>

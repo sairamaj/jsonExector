@@ -38,6 +38,7 @@ namespace JsonExecutor.Gui.ViewModels
         {
             this.TestFile = testFile;
             this.IsEnabled = isEnabled;
+            this.IsExpanded = true;
             this.RunCommand = new DelegateCommand(async () => { await this.RunAsync(false); });
             this.RunVerifyCommand = new DelegateCommand(async () =>
             {
